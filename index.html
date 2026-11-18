@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Danilo Nunes, Desenvolvedor de Software Pleno especialista em TOTVS Fluig: workflows, formulários, widgets e integrações com Protheus e RM.">
+<meta property="og:url" content="https://danilonunes27.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Danilo Nunes · Desenvolvedor de Software">
+<meta property="og:description" content="Desenvolvedor de Software Pleno, especialista em TOTVS Fluig.">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Danilo Nunes · Fluig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single process lane. Hero is a BPM flow; sections read like activities along it. */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#132029; --muted:#55636E; --line:#D5DCE2;
+  --accent:#0E6E62; --accent-soft:#DCEEEA; --gate:#B86A12; --shadow:rgba(19,32,41,.35);
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F161B; --surface:#162129; --ink:#E6ECEF; --muted:#9AA8B2; --line:#2A3943;
+  --accent:#4CC2AE; --accent-soft:#183A36; --gate:#E2A04E; --shadow:rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F161B; --surface:#162129; --ink:#E6ECEF; --muted:#9AA8B2; --line:#2A3943;
+  --accent:#4CC2AE; --accent-soft:#183A36; --gate:#E2A04E; --shadow:rgba(0,0,0,.7); color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+.mono{font-family:var(--f-mono)}
+.label{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font-family:var(--f-mono);font-size:14px;font-weight:500}
+.brand span{color:var(--accent)}
+nav.links{display:flex;gap:20px;font-size:14px}
+nav.links a{color:var(--muted);text-decoration:none}
+nav.links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{font:500 12px var(--f-mono);background:transparent;color:var(--muted);border:0;padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:720px){nav.links{display:none}}
+
+/* Hero */
+.hero{padding-block:56px 40px;display:grid;gap:40px}
+.hero .lead,.hero h1{max-width:900px}
+.hero h1{font-size:clamp(40px,7vw,72px);font-weight:700;letter-spacing:-.02em}
+.hero .role{font-family:var(--f-display);font-size:clamp(20px,3vw,28px);font-weight:500;color:var(--accent);margin-top:8px}
+.hero .lead{max-width:60ch;color:var(--muted);font-size:18px;margin-top:20px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;font-weight:600;font-size:15px;padding:12px 20px;border-radius:8px;text-decoration:none;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.ghost{color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.flow-wide{max-width:1320px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+.flow-box{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 18px 40px -28px var(--shadow)}
+.flow-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.flow-scroll{overflow-x:auto}
+.flow{display:block;min-width:980px;width:100%;height:auto}
+.flow text{font-family:var(--f-mono);font-size:14px;font-weight:500;fill:var(--ink)}
+.flow .sub{fill:var(--muted);font-size:12px;font-weight:400}
+.flow .gwl{fill:var(--gate)}
+.flow .lname{font-family:var(--f-display);font-size:15px;font-weight:700}
+.flow .lane{fill:var(--bg)}
+.flow .lane.alt{fill:var(--surface)}
+.flow .lanediv{stroke:var(--line);stroke-width:1;fill:none}
+.flow .task{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}
+.flow .task.done{fill:var(--accent-soft);stroke:var(--accent)}
+.flow .task.sys{fill:var(--surface);stroke:var(--ink);stroke-dasharray:5 4}
+.flow .ev{fill:var(--surface);stroke:var(--accent);stroke-width:2.5}
+.flow .ev.end{stroke:var(--ink);stroke-width:5}
+.flow .gw{fill:var(--surface);stroke:var(--gate);stroke-width:2}
+.flow .gwx{stroke:var(--gate);stroke-width:2}
+.flow .edge{stroke:var(--muted);stroke-width:1.6;fill:none}
+.flow .edge.back{stroke-dasharray:4 4}
+.flow .arrow{fill:var(--muted)}
+.flow .token circle{fill:var(--accent)}
+.flow .token .halo{opacity:.25}
+.legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;font-size:13px;color:var(--muted)}
+.legend > span{display:inline-flex;align-items:center;gap:8px}
+.lg{display:inline-block;width:18px;height:12px;border-radius:3px;border:1.5px solid var(--ink);background:var(--surface)}
+.lg.ev{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent)}
+.lg.task{background:var(--accent-soft);border-color:var(--accent)}
+.lg.sys{border-style:dashed}
+.lg.gw{width:11px;height:11px;border-radius:1px;border-color:var(--gate);transform:rotate(45deg)}
+@media (prefers-reduced-motion:reduce){.flow .token{display:none}}
+
+/* Sections */
+section.block{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:8px;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:700}
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
+.about p+p{margin-top:14px}
+.about .text{max-width:62ch;min-width:0}
+.facts{display:grid;gap:0;align-content:start;border-top:1px solid var(--line)}
+.facts div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);font-size:15px}
+.facts dt{margin:0}.facts dd{margin:0}
+@media (max-width:760px){.about{grid-template-columns:1fr}}
+
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.stack h3{font-size:18px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.chips li{font-family:var(--f-mono);font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.chips.learning li{border-style:dashed;background:transparent;color:var(--muted)}
+
+.cases{display:grid;gap:20px}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;grid-template-columns:200px 1fr;gap:24px}
+.case .meta{display:grid;gap:10px;align-content:start}
+.case .id{font-family:var(--f-mono);font-size:13px;color:var(--accent)}
+.case .kind{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gate)}
+.case h3{font-size:22px;margin-bottom:12px}
+.case .body{min-width:0;display:grid;gap:14px}
+.case dl{display:grid;gap:10px;margin:0}
+.case dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.case dd{margin:2px 0 0}
+@media (max-width:760px){.case{grid-template-columns:1fr;gap:12px}}
+.more{margin-top:32px;display:grid;gap:12px}
+.more h3{font-size:20px}
+.more ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));border-top:1px solid var(--line)}
+.more li{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:12px 16px 12px 0;border-bottom:1px solid var(--line);font-size:15px;min-width:0}
+.more li .mono{color:var(--accent);font-size:13px;padding-top:2px}
+.more li b{font-weight:600}
+.more li span.d{color:var(--muted)}
+.case.side{margin-top:32px;border-style:dashed;background:transparent}
+.status{font-family:var(--f-mono);font-size:13px;color:var(--gate)}
+.case ul.acts{margin:0;padding-left:18px;display:grid;gap:4px}
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--accent)}
+.steps li{padding:16px 16px 16px 0;display:grid;gap:6px;align-content:start;min-width:0}
+.steps .mono{color:var(--accent);font-size:13px}
+.steps h3{font-size:17px}
+.steps p{color:var(--muted);font-size:14px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.note{font-size:14px;color:var(--muted);margin-top:20px;max-width:70ch}
+
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--line)}
+.services div{padding:20px 20px 20px 0;border-bottom:1px solid var(--line);display:grid;gap:6px;min-width:0}
+.services h3{font-size:18px}
+.services p{color:var(--muted);font-size:15px}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.contact .row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.contact .val{font-family:var(--f-mono);font-size:14px;word-break:break-all}
+.copy{font:500 12px var(--f-mono);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 10px;border-radius:6px;cursor:pointer}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+footer{padding-block:32px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">danilo<span>.</span>nunes</div>
+    <nav class="links" aria-label="Seções">
+      <a href="#sobre" data-i18n="nav_about">Sobre</a>
+      <a href="#stack" data-i18n="nav_stack">Stack</a>
+      <a href="#cases" data-i18n="nav_cases">Cases</a>
+      <a href="#processo" data-i18n="nav_how">Método</a>
+      <a href="#servicos" data-i18n="nav_services">Serviços</a>
+      <a href="#contato" data-i18n="nav_contact">Contato</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="lang-pt" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <p class="label" data-i18n="hero_eyebrow">Full Stack · Automação de processos · Integração de sistemas</p>
+      <h1>Danilo Nunes</h1>
+      <p class="role" data-i18n="hero_role">Desenvolvedor de Software Pleno, especialista em TOTVS Fluig</p>
+      <p class="lead" data-i18n="hero_lead">Há cerca de 4 anos desenvolvo e mantenho soluções corporativas: workflows, formulários, widgets e integrações entre Fluig, Protheus e RM. Sigo a informação da interface ao banco de dados e aos serviços para encontrar onde o problema realmente está.</p>
+      <div class="cta">
+        <a class="btn primary" href="#cases" data-i18n="hero_cta1">Ver cases</a>
+        <a class="btn ghost" href="#contato" data-i18n="hero_cta2">Falar comigo</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flow-wide">
+    <figure class="flow-box">
+      <div class="flow-head">
+        <span class="label" data-i18n="flow_title">Exemplo de fluxo que costumo construir</span>
+        <span class="label mono">processo · purchase_request</span>
+      </div>
+      <div class="flow-scroll">
+      <svg class="flow" viewBox="0 0 1250 350" role="img" aria-labelledby="flowdesc">
+        <title id="flowdesc" data-i18n="f_desc">Fluxo BPM de compra em três raias: solicitação, validação por dataset, aprovação do gestor, regra de alçada com aprovação da diretoria, integração com o Protheus e notificação por e-mail</title>
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrow" d="M0 0L10 5L0 10z"/></marker></defs>
+        <rect class="lane" x="0" y="10" width="1250" height="110"/>
+        <rect class="lane alt" x="0" y="120" width="1250" height="110"/>
+        <rect class="lane" x="0" y="230" width="1250" height="110"/>
+        <path class="lanediv" d="M120 10 V340 M0 120 H1250 M0 230 H1250"/>
+        <text class="lname" x="60" y="69" text-anchor="middle" data-i18n="f_l1">Solicitante</text>
+        <text class="lname" x="60" y="179" text-anchor="middle" data-i18n="f_l2">Aprovadores</text>
+        <text class="lname" x="60" y="282" text-anchor="middle" data-i18n="f_l3">Sistemas</text>
+        <text class="sub" x="60" y="300" text-anchor="middle">Fluig · ERP</text>
+
+        <path class="edge" d="M178 65 H196" marker-end="url(#ar)"/>
+        <path class="edge" d="M340 65 H360 V285 H376" marker-end="url(#ar)"/>
+        <path class="edge" d="M520 285 H540 V175 H556" marker-end="url(#ar)"/>
+        <path class="edge" d="M700 175 H736" marker-end="url(#ar)"/>
+        <path class="edge" d="M800 175 H836" marker-end="url(#ar)"/>
+        <path class="edge" d="M980 175 H1000 V285 H1016" marker-end="url(#ar)"/>
+        <path class="edge" d="M770 205 V285 H1000"/>
+        <path class="edge" d="M1090 255 V99" marker-end="url(#ar)"/>
+        <path class="edge" d="M1160 65 H1192" marker-end="url(#ar)"/>
+        <path class="edge back" d="M630 145 V20 H270 V31" marker-end="url(#ar)"/>
+        <text class="sub" x="450" y="38" text-anchor="middle" data-i18n="f_back">reprovado · volta para ajustes</text>
+
+        <circle class="ev" cx="160" cy="65" r="18"/>
+        <text class="sub" x="160" y="105" text-anchor="middle" data-i18n="f_start">início</text>
+
+        <rect class="task done" x="200" y="35" width="140" height="60" rx="10"/>
+        <text x="270" y="61" text-anchor="middle" data-i18n="f_t1">Solicitação</text>
+        <text class="sub" x="270" y="80" text-anchor="middle" data-i18n="f_t1s">formulário + anexos</text>
+
+        <rect class="task sys" x="380" y="255" width="140" height="60" rx="10"/>
+        <text x="450" y="281" text-anchor="middle" data-i18n="f_t2">Validação</text>
+        <text class="sub" x="450" y="300" text-anchor="middle">dataset · SQL</text>
+
+        <rect class="task done" x="560" y="145" width="140" height="60" rx="10"/>
+        <text x="630" y="171" text-anchor="middle" data-i18n="f_t3">Aprovação</text>
+        <text class="sub" x="630" y="190" text-anchor="middle" data-i18n="f_t3s">gestor</text>
+
+        <polygon class="gw" points="770,145 800,175 770,205 740,175"/>
+        <path class="gwx" d="M760 165 L780 185 M780 165 L760 185"/>
+        <text class="sub gwl" x="770" y="136" text-anchor="middle" data-i18n="f_gw">acima da alçada?</text>
+        <text class="sub gwl" x="818" y="166" text-anchor="middle" data-i18n="f_yes">sim</text>
+        <text class="sub gwl" x="778" y="250" data-i18n="f_no">não</text>
+
+        <rect class="task done" x="840" y="145" width="140" height="60" rx="10"/>
+        <text x="910" y="171" text-anchor="middle" data-i18n="f_t3">Aprovação</text>
+        <text class="sub" x="910" y="190" text-anchor="middle" data-i18n="f_t4s">diretoria</text>
+
+        <rect class="task sys" x="1020" y="255" width="140" height="60" rx="10"/>
+        <text x="1090" y="281" text-anchor="middle">Service Task</text>
+        <text class="sub" x="1090" y="300" text-anchor="middle" data-i18n="f_t5s">pedido → Protheus</text>
+
+        <rect class="task" x="1020" y="35" width="140" height="60" rx="10"/>
+        <text x="1090" y="61" text-anchor="middle" data-i18n="f_t6">Notificação</text>
+        <text class="sub" x="1090" y="80" text-anchor="middle">e-mail</text>
+
+        <circle class="ev end" cx="1214" cy="65" r="18"/>
+        <text class="sub" x="1214" y="105" text-anchor="middle" data-i18n="f_end">fim</text>
+
+        <g class="token">
+          <circle class="halo" r="14"/><circle r="7"/>
+          <animateMotion dur="11s" repeatCount="indefinite" rotate="0" path="M160 65 H360 V285 H540 V175 H1000 V285 H1090 V65 H1214"/>
+        </g>
+      </svg>
+      </div>
+      <figcaption class="legend">
+        <span><i class="lg ev"></i><span data-i18n="lg_ev">Evento</span></span>
+        <span><i class="lg task"></i><span data-i18n="lg_task">Tarefa humana</span></span>
+        <span><i class="lg sys"></i><span data-i18n="lg_sys">Tarefa de sistema</span></span>
+        <span><i class="lg gw"></i><span data-i18n="lg_gw">Decisão</span></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <section class="block" id="sobre">
+    <div class="wrap">
+      <div class="sec-head"><span class="label" data-i18n="about_eyebrow">Sobre</span><h2 data-i18n="about_title">Código que segue a regra de negócio</h2></div>
+      <div class="about">
+        <div class="text">
+          <p data-i18n="about_p1">Trabalho com JavaScript, jQuery, SQL, HTML e CSS para implementar regras de negócio, formulários dinâmicos, serviços de integração e workflows com várias etapas. Boa parte do meu dia é investigar erros: analisar logs, validar dados, otimizar consultas e achar a falha no fluxo de execução.</p>
+          <p data-i18n="about_p2">Curso Ciência da Computação e estudo Clean Code, arquitetura e separação de responsabilidades. Quero ampliar minha atuação como Full Stack, em aplicações independentes de plataforma, e evoluir para liderança técnica.</p>
+        </div>
+        <dl class="facts">
+          <div><dt class="label" data-i18n="fact_focus">Foco</dt><dd>TOTVS Fluig</dd></div>
+          <div><dt class="label" data-i18n="fact_exp">Experiência</dt><dd data-i18n="fact_exp_v">~4 anos de desenvolvimento</dd></div>
+          <div><dt class="label" data-i18n="fact_edu">Formação</dt><dd data-i18n="fact_edu_v">Ciência da Computação (cursando)</dd></div>
+          <div><dt class="label" data-i18n="fact_roles">Busco</dt><dd data-i18n="fact_roles_v">Dev Pleno · Full Stack · Integrações</dd></div>
+          <div><dt class="label" data-i18n="fact_work">Atuação</dt><dd data-i18n="fact_work_v">Remoto · Brasil e exterior · freelance</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="stack">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Stack</span><h2 data-i18n="stack_title">Ferramentas que uso no trabalho</h2></div>
+      <div class="stack">
+        <div><h3>Fluig</h3><ul class="chips"><li>BPM / Workflows</li><li data-i18n="s_forms">Formulários</li><li>Widgets</li><li>Datasets</li><li data-i18n="s_events">Eventos</li><li>Service Tasks</li><li>FLUIGC</li></ul></div>
+        <div><h3>Front-end</h3><ul class="chips"><li>JavaScript</li><li>jQuery</li><li>HTML</li><li>CSS</li><li>DataTables</li><li data-i18n="s_pf">Tabelas pai-filho</li></ul></div>
+        <div><h3 data-i18n="s_data">Dados</h3><ul class="chips"><li>SQL</li><li>SQL Server</li><li>JDBC</li><li>PostgreSQL</li><li data-i18n="s_logs">Logs e depuração</li></ul></div>
+        <div><h3 data-i18n="s_int">Integrações</h3><ul class="chips"><li>REST</li><li>SOAP</li><li>TOTVS Protheus</li><li>TOTVS RM</li><li>SharePoint</li></ul></div>
+        <div><h3 data-i18n="s_learn">Estudando agora</h3><ul class="chips learning"><li>TypeScript</li><li>Node.js</li><li>React</li><li>Docker</li><li data-i18n="s_tests">Testes automatizados</li><li>Cloud</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cases">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Cases</span><h2 data-i18n="cases_title">Projetos em sistemas corporativos</h2></div>
+      <div class="cases" id="case-list"></div>
+      <div class="more">
+        <h3 data-i18n="more_title">Outras entregas</h3>
+        <ul id="more-list"></ul>
+      </div>
+      <article class="case side">
+        <div class="meta"><span class="id">#side</span><span class="kind" data-i18n="k_side">Projeto próprio</span><ul class="chips"><li>PostgreSQL</li></ul></div>
+        <div class="body">
+          <h3 data-i18n="side_t">Aplicação de gestão de conteúdo interno</h3>
+          <p data-i18n="side_d">Aplicação para centralizar a gestão de conteúdo das redes sociais internas de uma instituição financeira, com estrutura de dados própria e independente de integrações externas.</p>
+          <p class="status" data-i18n="side_s">Status: em desenvolvimento</p>
+        </div>
+      </article>
+      <p class="note" data-i18n="cases_note">Os cases são descritos sem nomes de empresas, identificadores internos ou dados de fornecedores, por confidencialidade. Posso detalhar a parte técnica em uma conversa.</p>
+    </div>
+  </section>
+
+  <section class="block" id="processo">
+    <div class="wrap">
+      <div class="sec-head"><span class="label" data-i18n="how_eyebrow">Método</span><h2 data-i18n="how_title">Como trabalho</h2></div>
+      <ol class="steps">
+        <li><span class="mono">01</span><h3 data-i18n="h1_t">Entender o problema</h3><p data-i18n="h1_d">Comportamento esperado, regras envolvidas e dados necessários.</p></li>
+        <li><span class="mono">02</span><h3 data-i18n="h2_t">Analisar</h3><p data-i18n="h2_d">Código, consultas, dados e integrações relacionadas.</p></li>
+        <li><span class="mono">03</span><h3 data-i18n="h3_t">Implementar</h3><p data-i18n="h3_d">Desenvolver ou ajustar priorizando consistência e clareza.</p></li>
+        <li><span class="mono">04</span><h3 data-i18n="h4_t">Diagnosticar e validar</h3><p data-i18n="h4_d">Logs, verificação de condições e análise dos resultados.</p></li>
+        <li><span class="mono">05</span><h3 data-i18n="h5_t">Corrigir e evoluir</h3><p data-i18n="h5_d">Ajustar a solução conforme os testes e as novas necessidades.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="servicos">
+    <div class="wrap">
+      <div class="sec-head"><span class="label" data-i18n="srv_eyebrow">Freelance</span><h2 data-i18n="srv_title">Como posso ajudar</h2></div>
+      <div class="services">
+        <div><h3 data-i18n="sv1_t">Novos processos BPM</h3><p data-i18n="sv1_d">Do levantamento das regras ao fluxo publicado, com formulários e notificações.</p></div>
+        <div><h3 data-i18n="sv2_t">Integrações com ERP</h3><p data-i18n="sv2_d">Fluig conectado a Protheus, RM e outros sistemas via REST, SOAP ou JDBC.</p></div>
+        <div><h3 data-i18n="sv3_t">Widgets e datasets</h3><p data-i18n="sv3_d">Painéis, consultas e componentes para o portal Fluig.</p></div>
+        <div><h3 data-i18n="sv4_t">Manutenção e correções</h3><p data-i18n="sv4_d">Depuração de processos existentes e ajustes em regras de negócio.</p></div>
+      </div>
+      <p class="note" data-i18n="srv_note">Prefiro projetos de escopo fechado, com entregas e prazo combinados no início.</p>
+    </div>
+  </section>
+
+  <section class="block" id="contato">
+    <div class="wrap contact">
+      <div class="sec-head" style="margin:0"><span class="label" data-i18n="ct_eyebrow">Contato</span><h2 data-i18n="ct_title">Vamos conversar sobre o seu processo</h2><p style="color:var(--muted);margin-top:8px" data-i18n="ct_lead">Aberto a vagas remotas, inclusive no Reino Unido, em Portugal e no Canadá, e a projetos freelance.</p></div>
+      <div>
+        <div class="row"><span class="label">E-mail</span><span class="val" id="v-mail">danilonunesvr27@gmail.com</span><button class="copy" type="button" data-copy="v-mail" data-i18n="copy">Copiar</button></div>
+        <div class="row"><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/danilonunesdev" target="_blank" rel="noopener">linkedin.com/in/danilonunesdev</a></div>
+        <div class="row"><span class="label">GitHub</span><a class="val" href="https://github.com/DaniloNunes27" target="_blank" rel="noopener">github.com/DaniloNunes27</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Danilo Nunes · <span data-i18n="ft">Desenvolvedor de Software Pleno</span></div></footer>
+
+<script>
+const CASES = [
+ {id:"01", tags:["JavaScript","Arrays","Logs"],
+  pt:{k:"Regra de negócio", t:"Cotação de fornecedores e equalização de preços", o:"Comparar propostas de fornecedores por produto e centro de custo.",
+      a:["Leitura, agrupamento e ordenação de cotações","Tratamento de preço unitário, quantidade, descontos e totais","Investigação de propostas ignoradas ou removidas indevidamente","Logs para registrar dados recebidos, filtros e validações"],
+      r:"Lógica de comparação mais consistente e diagnóstico de cotações que não apareciam."},
+  en:{k:"Business logic", t:"Supplier quotation and price equalization", o:"Compare supplier proposals by product and cost center.",
+      a:["Reading, grouping and sorting quotes","Handling unit price, quantity, discounts and totals","Investigating proposals wrongly ignored or removed","Logging inputs, filters and validation results"],
+      r:"More consistent comparison logic and a way to diagnose quotes that were not showing up."}},
+ {id:"02", tags:["REST","SOAP","JDBC","Protheus","RM"],
+  pt:{k:"Integração", t:"Integração entre Fluig, Protheus e RM", o:"Permitir que as aplicações corporativas troquem as informações de que os processos precisam.",
+      a:["Consumo e análise de serviços REST e SOAP","Parâmetros de empresa, filial e identificadores","Investigação de falhas em serviços e respostas","Participação na migração de integrações SOAP para REST"],
+      r:"Integrações mantidas e evoluídas para a execução dos processos entre sistemas."},
+  en:{k:"Integration", t:"Fluig, Protheus and RM integration", o:"Let enterprise applications exchange the data each process needs.",
+      a:["Consuming and analyzing REST and SOAP services","Handling company, branch and identifier parameters","Investigating service and response failures","Taking part in migrating SOAP integrations to REST"],
+      r:"Integrations maintained and evolved so processes run across systems."}},
+ {id:"03", tags:["Workflow","Formulários","Pai-filho"],
+  pt:{k:"Processo", t:"Automação de solicitação de reembolso", o:"Estruturar o fluxo de solicitação, análise e aprovação de reembolsos.",
+      a:["Desenvolvimento e evolução do formulário","Despesas em tabelas pai-filho com validações","Fluxo de aprovação, rejeição e retorno para ajustes"],
+      r:"Processo com validações, aprovações e rastreabilidade."},
+  en:{k:"Process", t:"Expense reimbursement automation", o:"Structure the request, review and approval flow for reimbursements.",
+      a:["Building and evolving the request form","Expenses in validated master-detail tables","Approval, rejection and return-for-changes flow"],
+      r:"A process with validations, approvals and traceability."}},
+ {id:"04", tags:["Widgets","SQL","Datasets"],
+  pt:{k:"Interface + dados", t:"Central de Compras", o:"Evoluir as funcionalidades de solicitação e acompanhamento de compras.",
+      a:["Widgets e consultas para exibir demandas","Filtros para localizar solicitações em andamento","Análise de duplicidades e divergências entre SQL e interface","Permissões e grupos de usuários"],
+      r:"Consulta e acompanhamento dos processos de compras mais confiáveis."},
+  en:{k:"UI + data", t:"Purchasing Center", o:"Evolve purchase request and tracking features.",
+      a:["Widgets and queries to display requests","Filters to find requests in progress","Analyzing duplicates and SQL vs. UI mismatches","Permissions and user groups"],
+      r:"More reliable lookup and tracking of purchasing processes."}},
+ {id:"05", tags:["Workflow","E-mail","Histórico"],
+  pt:{k:"Processo", t:"Aprovações e regras de alçada", o:"Adequar os fluxos de aprovação às responsabilidades de cada área.",
+      a:["Regras para direcionar atividades ao responsável certo","Etapas de aprovação, retorno e conclusão","Notificações automáticas","Análise do histórico para definir o próximo responsável"],
+      r:"Direcionamento das solicitações mais consistente com as regras de aprovação."},
+  en:{k:"Process", t:"Approvals and authority rules", o:"Align approval flows with each department's responsibilities.",
+      a:["Rules to route tasks to the right owner","Approval, return and completion steps","Automatic notifications","Using process history to define the next owner"],
+      r:"Request routing more consistent with approval rules."}},
+ {id:"06", tags:["Logs","SQL","Debug"],
+  pt:{k:"Confiabilidade", t:"Diagnóstico de erros", o:"Encontrar a origem de falhas com base em evidências técnicas.",
+      a:["Logs de entradas, condições avaliadas e resultados","Exceções e falhas em integrações","Registros duplicados e resultados inesperados","Comparação entre o comportamento esperado e o executado"],
+      r:"Problemas localizados mais rápido e correções validadas de forma estruturada."},
+  en:{k:"Reliability", t:"Error diagnosis", o:"Find the root cause of failures from technical evidence.",
+      a:["Logging inputs, evaluated conditions and results","Exceptions and integration failures","Duplicate records and unexpected results","Comparing expected vs. actual behavior"],
+      r:"Faster root-cause finding and structured validation of fixes."}}
+];
+const MORE = [
+ {id:"07", pt:["Licitações e aditivos","Etapas, cancelamentos e análise jurídica"], en:["Bids and amendments","Steps, cancellations and legal review"]},
+ {id:"08", pt:["Widgets corporativos","FLUIGC, DataTables, filtros e datasets"], en:["Enterprise widgets","FLUIGC, DataTables, filters and datasets"]},
+ {id:"09", pt:["Programas de ação","Inclusão, avaliação e validações"], en:["Action programs","Registration, evaluation and validations"]},
+ {id:"10", pt:["Notificações por e-mail","Destinatários, condições e falhas de envio"], en:["E-mail notifications","Recipients, conditions and send failures"]},
+ {id:"11", pt:["Pagamentos e compras","Duplicidades, anexos e centros de custo"], en:["Payments and purchasing","Duplicates, attachments and cost centers"]},
+ {id:"12", pt:["Formulários","Campos por etapa, datas, valores e modos de exibição"], en:["Forms","Per-step fields, dates, values and view modes"]},
+ {id:"13", pt:["Consultas e datasets","JDBC, SQL e filtros por usuário e grupo"], en:["Queries and datasets","JDBC, SQL and user/group filters"]},
+ {id:"14", pt:["Manutenção diversa","Adiantamentos, medições, documentos fiscais"], en:["Ongoing maintenance","Advances, measurements, tax documents"]}
+];
+const LBL = {pt:{o:"Objetivo", a:"O que fiz", r:"Resultado"}, en:{o:"Goal", a:"What I did", r:"Outcome"}};
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function renderCases(l){
+  const L = LBL[l];
+  document.getElementById("case-list").innerHTML = CASES.map(c => { const d = c[l]; return `
+    <article class="case">
+      <div class="meta"><span class="id">#${c.id}</span><span class="kind">${esc(d.k)}</span><ul class="chips">${c.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+      <div class="body"><h3>${esc(d.t)}</h3>
+        <dl><div><dt>${L.o}</dt><dd>${esc(d.o)}</dd></div>
+        <div><dt>${L.a}</dt><dd><ul class="acts">${d.a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></dd></div>
+        <div><dt>${L.r}</dt><dd>${esc(d.r)}</dd></div></dl>
+      </div>
+    </article>`; }).join("");
+  document.getElementById("more-list").innerHTML = MORE.map(m => `<li><span class="mono">#${m.id}</span><span><b>${esc(m[l][0])}</b><br><span class="d">${esc(m[l][1])}</span></span></li>`).join("");
+}
+renderCases("pt");
+const EN = {
+  nav_about:"About", nav_stack:"Stack", nav_cases:"Cases", nav_services:"Services", nav_contact:"Contact",
+  hero_eyebrow:"Full Stack · Process automation · Systems integration",
+  hero_role:"Mid-level Software Developer specialized in TOTVS Fluig",
+  hero_lead:"For about 4 years I have built and maintained enterprise solutions: workflows, forms, widgets and integrations across Fluig, Protheus and RM. I trace data from the interface to the database and the services to find where the problem really is.",
+  hero_cta1:"See cases", hero_cta2:"Get in touch",
+  flow_title:"A typical flow I build",
+  f_start:"start", f_end:"end", f_l1:"Requester", f_l2:"Approvers", f_l3:"Systems",
+  f_t1:"Request", f_t1s:"form + attachments", f_t2:"Validation", f_t3:"Approval", f_t3s:"manager", f_t4s:"board",
+  f_gw:"above authority limit?", f_yes:"yes", f_no:"no", f_back:"rejected · back for changes", f_t5s:"order → Protheus", f_t6:"Notification",
+  f_desc:"Three-lane BPM purchase flow: request, dataset validation, manager approval, authority-limit rule with board approval, Protheus integration and e-mail notification",
+  lg_ev:"Event", lg_task:"Human task", lg_sys:"System task", lg_gw:"Decision",
+  about_eyebrow:"About", about_title:"Code that follows the business rule",
+  about_p1:"I work with JavaScript, jQuery, SQL, HTML and CSS to implement business rules, dynamic forms, integration services and multi-step workflows. Much of my day is troubleshooting: reading logs, validating data, optimizing queries and finding the failure in the execution flow.",
+  about_p2:"I am pursuing a Computer Science degree and studying Clean Code, architecture and separation of concerns. I want to grow as a Full Stack developer on platform-independent applications and move toward technical leadership.",
+  fact_focus:"Focus", fact_exp:"Experience", fact_exp_v:"~4 years in development", fact_edu:"Education", fact_edu_v:"Computer Science (in progress)", fact_work:"Work", fact_work_v:"Remote · Brazil and abroad · freelance",
+  stack_title:"Tools I use at work", s_forms:"Forms", s_data:"Data", s_int:"Integrations", s_learn:"Currently learning", s_tests:"Automated testing", s_att:"Attachments",
+  cases_title:"Enterprise systems projects", more_title:"Other deliveries", k_side:"Own project",
+  side_t:"Internal content management app", side_d:"An application to centralize content management for a financial institution's internal social channels, with its own data structure, independent of external integrations.", side_s:"Status: in development",
+  cases_note:"Cases are described without company names, internal identifiers or supplier data for confidentiality. I am happy to walk through the technical details in a call.",
+  nav_how:"Method", how_eyebrow:"Method", how_title:"How I work",
+  h1_t:"Understand the problem", h1_d:"Expected behavior, rules involved and data needed.",
+  h2_t:"Analyze", h2_d:"Code, queries, data and related integrations.",
+  h3_t:"Implement", h3_d:"Build or adjust with consistency and clarity first.",
+  h4_t:"Diagnose and validate", h4_d:"Logs, condition checks and result analysis.",
+  h5_t:"Fix and evolve", h5_d:"Adjust the solution based on tests and new needs.",
+  fact_roles:"Looking for", fact_roles_v:"Mid-level Dev · Full Stack · Integrations",
+  s_events:"Events", s_pf:"Master-detail tables", s_logs:"Logging and debugging",
+  srv_eyebrow:"Freelance", srv_title:"How I can help",
+  sv1_t:"New BPM processes", sv1_d:"From gathering the rules to a published flow, with forms and notifications.",
+  sv2_t:"ERP integrations", sv2_d:"Fluig connected to Protheus, RM and other systems via REST, SOAP or JDBC.",
+  sv3_t:"Widgets and datasets", sv3_d:"Dashboards, queries and components for the Fluig portal.",
+  sv4_t:"Maintenance and fixes", sv4_d:"Debugging existing processes and adjusting business rules.",
+  srv_note:"I prefer fixed-scope projects, with deliverables and timeline agreed upfront.",
+  ct_eyebrow:"Contact", ct_title:"Let's talk about your process", ct_lead:"Open to remote roles, including in the UK, Portugal and Canada, and to freelance projects.",
+  copy:"Copy", copied:"Copied", ft:"Mid-level Software Developer"
+};
+const PT = {};
+document.querySelectorAll("[data-i18n]").forEach(el => { PT[el.dataset.i18n] = el.textContent; });
+PT.copied = "Copiado";
+let lang = "pt";
+
+function setLang(l){
+  lang = l;
+  const dict = l === "en" ? EN : PT;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const v = dict[el.dataset.i18n];
+    if (v) el.textContent = v;
+  });
+  renderCases(l);
+  document.documentElement.lang = l === "en" ? "en" : "pt-BR";
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  try { localStorage.setItem("dn-lang", l); } catch (e) {}
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+let start = location.hash === "#en" ? "en" : null;
+if (!start) { try { start = localStorage.getItem("dn-lang"); } catch (e) {} }
+if (start === "en") setLang("en");
+
+document.querySelectorAll("[data-copy]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const el = document.getElementById(btn.dataset.copy);
+    const text = el.textContent;
+    const done = () => { btn.textContent = (lang === "en" ? EN : PT).copied; };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  });
+});
+</script>
+
+</body>
+</html>
